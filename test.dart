@@ -1,10 +1,8 @@
 import 'package:http/http.dart' as http;
+import './lib/Model/RedditModel.dart';
+import 'dart:convert';
 
 final redditPost = <String, int>{};
-
-final clientId = "fGr67iNoLCmbN_9i9TD8gQ";
-final redirectUri = "https://www.shub.website";
-final secret = "pi53bv9ttGS89zYKpgQXzwsIR9S0Ow";
 
 final url = Uri.https("oauth.reddit.com", "/api/v1/me");
 final token = "ZusN7tpzZyrCSZyy4Y1Cybhf8Cav6A";
@@ -19,9 +17,8 @@ Future<void> fetchPost() async {
 
 fetchAlbum() async {
   final response = await http.get(
-    Uri.parse('https://jsonplaceholder.typicode.com/albums/1'),
+    Uri.parse('https://www.reddit.com/r/androiddev/.json'),
   );
-
   return response.body;
 }
 
@@ -46,10 +43,17 @@ fetchAlbum() async {
 getPost() async {
   final uri = Uri.parse("https://www.reddit.com/r/androiddev/.json");
   var response = await http.get(uri);
-  print(response.body);
+  return parsePosts(response.body);
+}
+
+List<Post> parsePosts(String response) {
+  final parsed =
+      (jsonDecode(response) as List<Object?>).cast<Map<String, Object?>>();
+  return parsed.map<Post>(Post.json).toList();
 }
 
 void main() async {
-  getPost();
+  // getPost();
   // fetchPost();
+  print(fetchAlbum());
 }
