@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as https;
 
 var simpleMap = {"id": "487349", "name": "Pooja Bhaumik", "score": 1000};
@@ -142,7 +140,7 @@ class Book {
       perPage: json['per_page'],
       total: json['total'],
       author: json['author'],
-      data: list.map((i)=>Data.fromJson(i)).toList(),
+      data: list.map((i) => Data.fromJson(i)).toList(),
     );
   }
 }
