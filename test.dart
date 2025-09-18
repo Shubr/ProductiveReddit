@@ -40,17 +40,17 @@ fetchAlbum() async {
 //   }
 // }
 
-getPost() async {
-  final uri = Uri.parse("https://www.reddit.com/r/androiddev/.json");
-  var response = await http.get(uri);
-  return parsePosts(response.body);
-}
+// getPost() async {
+//   final uri = Uri.parse("https://www.reddit.com/r/androiddev/.json");
+//   var response = await http.get(uri);
+//   return parsePosts(response.body);
+// }
 
-List<Post> parsePosts(String response) {
-  final parsed =
-      (jsonDecode(response) as List<Object?>).cast<Map<String, Object?>>();
-  return parsed.map<Post>(Post.json).toList();
-}
+// List<Post> parsePosts(String response) {
+//   final parsed =
+//       (jsonDecode(response) as List<Object?>).cast<Map<String, Object?>>();
+//   return parsed.map<Post>(Post.json).toList();
+// }
 
 void main() async {
   // getPost();

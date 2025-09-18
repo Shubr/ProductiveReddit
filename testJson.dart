@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as https;
+import 'lib/Model/RedditModel.dart';
 
 final d = {
   "page": 1,
@@ -114,14 +115,14 @@ class Images {
 }
 
 getJson() async {
-  final uri = Uri.parse(
-    "https://raw.githubusercontent.com/PoojaB26/ParsingJSON-Flutter/refs/heads/master/assets/page.json",
-  );
+  final uri = Uri.parse("https://www.reddit.com/r/androiddev/.json");
   final response = await https.get(uri);
   return response.body;
 }
 
 void main() async {
-  var book = Books.fromJson(d);
-  print(book.data[1].images[0].imageName);
+  // var book = Books.fromJson(d);
+  // print(book.data[1].images[0].imageName);
+  var post = Reddit.fromJson(await getJson());
+  print(post.kind);
 }

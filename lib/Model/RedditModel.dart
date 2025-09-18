@@ -1,29 +1,43 @@
-class JsonBody {
-  DataBody data;
-  JsonBody({required this.data});
+class Reddit {
+  String kind;
+  // PostBody postBody;
+
+  Reddit({required this.kind});
+
+  factory Reddit.fromJson(Map<String, dynamic> json) {
+    return Reddit(kind: json['kind']);
+  }
 }
 
-class DataBody {
-  List<Post> children;
-  DataBody({required this.children});
+class PostBody {
+  Post post;
+
+  PostBody({required this.post});
+
+  factory PostBody.fromJson(Map<String, dynamic> json) {
+    return PostBody(post: json['post']);
+  }
 }
 
 class Post {
   String subreddit;
   String title;
-  String textBody;
+  String postText;
+  int epocTime;
 
   Post({
     required this.subreddit,
     required this.title,
-    required this.textBody,
+    required this.postText,
+    required this.epocTime,
   });
 
-  factory Post.json(Map<String, dynamic> json) {
+  factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
-      subreddit: json['subreddit'] as String,
-      title: json['title'] as String,
-      textBody: json['post'] as String,
+      subreddit: json['subreddit'],
+      title: json['title'],
+      postText: json['selftext'],
+      epocTime: json['created_utc'],
     );
   }
 }
