@@ -1,15 +1,5 @@
 import 'package:http/http.dart' as https;
 
-var simpleMap = {"id": "487349", "name": "Pooja Bhaumik", "score": 1000};
-var simpleStructureArray = {
-  "city": "Mumbai",
-  "streets": ["address1", "address2"],
-};
-var simpleNestedStructure = {
-  "shape_name": "rectangle",
-  "property": {"width": 5.0, "breadth": 10.0},
-};
-
 final d = {
   "page": 1,
   "per_page": 3,
@@ -35,7 +25,7 @@ final d = {
       "avatar":
           "https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg",
       "images": [
-        {"id": 122, "imageName": "377cjsahdh388.jpeg"},
+        {"id": 122, "imageName": "377cjsahdh380.jpeg"},
         {"id": 152, "imageName": "1743fsahdh388.jpeg"},
       ],
     },
@@ -53,94 +43,33 @@ final d = {
   ],
 };
 
-class Student {
-  String studentId;
-  String studentName;
-  int studentScore;
-
-  Student({
-    required this.studentId,
-    required this.studentName,
-    required this.studentScore,
-  });
-
-  factory Student.fromJson(Map<String, dynamic> parsedJson) {
-    return Student(
-      studentId: parsedJson['id'],
-      studentName: parsedJson['name'],
-      studentScore: parsedJson['score'],
-    );
-  }
-}
-
-class Location {
-  String city;
-  List<String> streets;
-
-  Location({required this.city, required this.streets});
-
-  factory Location.fromJson(Map<String, dynamic> parseJson) {
-    return Location(city: parseJson['city'], streets: parseJson['streets']);
-  }
-}
-
-class Shape {
-  String shapeName;
-  Property property;
-  // Map<String, dynamic> property;
-
-  Shape({required this.shapeName, required this.property});
-
-  factory Shape.fromJson(Map<String, dynamic> json) {
-    return Shape(
-      shapeName: json['shape_name'],
-      property: Property.fromJson(json['property']),
-    );
-  }
-}
-
-class Property {
-  double width;
-  double breadth;
-
-  Property({required this.width, required this.breadth});
-
-  factory Property.fromJson(Map<String, dynamic> json) {
-    return Property(width: json['width'], breadth: json['breadth']);
-  }
-}
-
-getJson() async {
-  final uri = Uri.parse(
-    "https://raw.githubusercontent.com/PoojaB26/ParsingJSON-Flutter/refs/heads/master/assets/page.json",
-  );
-  final response = await https.get(uri);
-  return response.body;
-}
-
-class Book {
+class Books {
   int page;
   int perPage;
   int total;
+  int totalPages;
   Map<String, dynamic> author;
-  Data data;
+  List<Data> data;
 
-  Book({
+  Books({
     required this.page,
-    required this.perPage,
     required this.total,
+    required this.perPage,
+    required this.totalPages,
     required this.author,
     required this.data,
   });
 
-  factory Book.fromJson(Map<String, dynamic> json) {
-    var list = json['data'];
-    return Book(
+  factory Books.fromJson(Map<String, dynamic> json) {
+    var list = json['data'] as List;
+    List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
+    return Books(
       page: json['page'],
       perPage: json['per_page'],
       total: json['total'],
+      totalPages: json['total_pages'],
       author: json['author'],
-      data: list.map((i) => Data.fromJson(i)).toList(),
+      data: dataList,
     );
   }
 }
@@ -150,23 +79,25 @@ class Data {
   String firstName;
   String lastName;
   String avatar;
-  Images image;
+  List<Images> images;
 
   Data({
     required this.id,
     required this.firstName,
     required this.lastName,
     required this.avatar,
-    required this.image,
+    required this.images,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) {
+    var list = json['images'] as List;
+    List<Images> listImages = list.map((i) => Images.fromJson(i)).toList();
     return Data(
       id: json['id'],
       firstName: json['first_name'],
       lastName: json['last_name'],
       avatar: json['avatar'],
-      image: Images.fromJson(json['images']),
+      images: listImages,
     );
   }
 }
@@ -182,13 +113,15 @@ class Images {
   }
 }
 
+getJson() async {
+  final uri = Uri.parse(
+    "https://raw.githubusercontent.com/PoojaB26/ParsingJSON-Flutter/refs/heads/master/assets/page.json",
+  );
+  final response = await https.get(uri);
+  return response.body;
+}
+
 void main() async {
-  // Student students = new Student.fromJson(simpleMap);
-  // Location locations = new Location.fromJson(simpleStructureArray);
-  // Shape shapes = new Shape.fromJson(simpleNestedStructure);
-  // print(students.studentId);
-  // print(locations.streets);
-  // print(shapes.property.width);
-  // final json = await getJson();
-  Book books = new Book.fromJson(d);
+  var book = Books.fromJson(d);
+  print(book.data[1].images[0].imageName);
 }
