@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: false,
         title: Text(
           "Reddit Pro",
           style: TextStyle(
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: const Color.fromRGBO(37, 37, 37, 1),
       ),
       backgroundColor: const Color.fromRGBO(58, 58, 58, 1),
-      body: SizedBox(width: 100, height: 100, child: Container(child:Text("hello"),color: Colors.red))
+      body: Center(child: PostCard(),)
     );
   }
 }
