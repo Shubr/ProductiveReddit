@@ -1,43 +1,62 @@
 class Reddit {
-  String kind;
-  // PostBody postBody;
+  PostBody postBody;
 
-  Reddit({required this.kind});
+  Reddit({required this.postBody});
 
   factory Reddit.fromJson(Map<String, dynamic> json) {
-    return Reddit(kind: json['kind']);
+    return Reddit(postBody: PostBody.fromJson(json['data']));
   }
 }
 
 class PostBody {
-  Post post;
-
+  List<Posts> post;
   PostBody({required this.post});
 
   factory PostBody.fromJson(Map<String, dynamic> json) {
-    return PostBody(post: json['post']);
+    var list = json['children'] as List;
+    var postList = list.map((i) => Posts.fromJson(i)).toList();
+    return PostBody(post: postList);
   }
 }
 
-class Post {
+class Posts {
+  PostDetails postDetails;
+
+  Posts({required this.postDetails});
+
+  factory Posts.fromJson(Map<String, dynamic> json) {
+    return Posts(postDetails: PostDetails.fromJson(json['data']));
+  }
+}
+
+class PostDetails {
   String subreddit;
   String title;
   String postText;
-  int epocTime;
+  double epocTime;
 
-  Post({
+  PostDetails({
     required this.subreddit,
     required this.title,
     required this.postText,
     required this.epocTime,
   });
 
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
+  factory PostDetails.fromJson(Map<String, dynamic> json) {
+    return PostDetails(
       subreddit: json['subreddit'],
       title: json['title'],
       postText: json['selftext'],
       epocTime: json['created_utc'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "subreddit": subreddit,
+      "title": title,
+      "postText": postText,
+      "epocTime": epocTime,
+    };
   }
 }

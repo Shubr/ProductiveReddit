@@ -1,48 +1,6 @@
 import 'package:http/http.dart' as https;
 import 'lib/Model/RedditModel.dart';
-
-final d = {
-  "page": 1,
-  "per_page": 3,
-  "total": 12,
-  "total_pages": 4,
-  "author": {"first_name": "Ms R", "last_name": "Reddy"},
-  "data": [
-    {
-      "id": 1,
-      "first_name": "George",
-      "last_name": "Bluth",
-      "avatar":
-          "https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg",
-      "images": [
-        {"id": 122, "imageName": "377cjsahdh388.jpeg"},
-        {"id": 152, "imageName": "1743fsahdh388.jpeg"},
-      ],
-    },
-    {
-      "id": 2,
-      "first_name": "Janet",
-      "last_name": "Weaver",
-      "avatar":
-          "https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg",
-      "images": [
-        {"id": 122, "imageName": "377cjsahdh380.jpeg"},
-        {"id": 152, "imageName": "1743fsahdh388.jpeg"},
-      ],
-    },
-    {
-      "id": 3,
-      "first_name": "Emma",
-      "last_name": "Wong",
-      "avatar":
-          "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg",
-      "images": [
-        {"id": 122, "imageName": "377cjsahdh388.jpeg"},
-        {"id": 152, "imageName": "1743fsahdh388.jpeg"},
-      ],
-    },
-  ],
-};
+import 'dart:convert';
 
 class Books {
   int page;
@@ -121,8 +79,8 @@ getJson() async {
 }
 
 void main() async {
-  // var book = Books.fromJson(d);
-  // print(book.data[1].images[0].imageName);
-  var post = Reddit.fromJson(await getJson());
-  print(post.kind);
+  var decode = jsonDecode(await getJson());
+  var post = Reddit.fromJson(decode);
+  print(post.postBody.post[0].postDetails.title);
+  
 }
