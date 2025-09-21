@@ -56,7 +56,7 @@ class PostDetails {
       "subreddit": subreddit,
       "title": title,
       "postText": postText,
-      "epocTime": epocTime,
+      "epocTime": DateTime.fromMillisecondsSinceEpoch(epocTime.toInt()),
     };
   }
 }
