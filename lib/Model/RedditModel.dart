@@ -1,7 +1,11 @@
-class Reddit {
-  PostBody postBody;
+import 'package:intl/intl.dart';
 
-  Reddit({required this.postBody});
+final DateFormat formatter = DateFormat("dd-MM-yyyy");
+
+class Reddit {
+  final PostBody? postBody;
+
+  Reddit({this.postBody});
 
   factory Reddit.fromJson(Map<String, dynamic> json) {
     return Reddit(postBody: PostBody.fromJson(json['data']));
@@ -9,8 +13,8 @@ class Reddit {
 }
 
 class PostBody {
-  List<Posts> post;
-  PostBody({required this.post});
+  final List<Posts>? post;
+  PostBody({this.post});
 
   factory PostBody.fromJson(Map<String, dynamic> json) {
     var list = json['children'] as List;
@@ -20,9 +24,9 @@ class PostBody {
 }
 
 class Posts {
-  PostDetails postDetails;
+  final PostDetails? postDetails;
 
-  Posts({required this.postDetails});
+  Posts({this.postDetails});
 
   factory Posts.fromJson(Map<String, dynamic> json) {
     return Posts(postDetails: PostDetails.fromJson(json['data']));
@@ -30,33 +34,23 @@ class Posts {
 }
 
 class PostDetails {
-  String subreddit;
-  String title;
-  String postText;
-  double epocTime;
-
-  PostDetails({
-    required this.subreddit,
-    required this.title,
-    required this.postText,
-    required this.epocTime,
-  });
+  final String? subreddit;
+  final String? title;
+  final String? postText;
+  final String? date;
+  PostDetails({this.subreddit, this.title, this.postText, this.date});
 
   factory PostDetails.fromJson(Map<String, dynamic> json) {
+    var epoc = json['created_utc'];
+    DateTime toEpoctime = DateTime.fromMillisecondsSinceEpoch(
+      epoc.floor() * 1000,
+    );
+    var formattedDate = formatter.format(toEpoctime);
     return PostDetails(
       subreddit: json['subreddit'],
       title: json['title'],
       postText: json['selftext'],
-      epocTime: json['created_utc'],
+      date: formattedDate,
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "subreddit": subreddit,
-      "title": title,
-      "postText": postText,
-      "epocTime": DateTime.fromMillisecondsSinceEpoch(epocTime.toInt()),
-    };
   }
 }

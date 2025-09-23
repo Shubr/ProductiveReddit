@@ -81,6 +81,5 @@ getJson() async {
 void main() async {
   var decode = jsonDecode(await getJson());
   var post = Reddit.fromJson(decode);
-  print(post.postBody.post[0].postDetails.title);
-  
+  print(post.postBody?.post![0].postDetails?.date);
 }

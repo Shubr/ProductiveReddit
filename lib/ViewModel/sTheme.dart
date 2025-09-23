@@ -6,8 +6,8 @@ FlutterView view = WidgetsBinding.instance.platformDispatcher.views.first;
 Size size = view.physicalSize;
 
 class sTheme {
-  Color primary = Color.fromRGBO(255, 7, 7, 1);
-  Color secondary = Color.fromRGBO(255, 7, 7, 1);
+  Color primary = Color.fromRGBO(23, 23, 23, 1);
+  Color secondary = Color.fromRGBO(145,145,145, 1);
 
   Color green = Color.fromRGBO(98, 217, 50, 1);
   Color red = Color.fromRGBO(217, 50, 50, 1);
