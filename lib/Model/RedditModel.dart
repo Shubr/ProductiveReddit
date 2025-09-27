@@ -13,8 +13,10 @@ class Reddit {
 }
 
 class PostBody {
-  final List<Posts>? post;
-  PostBody({this.post});
+  List<Posts>? post;
+  PostBody({
+    this.post  
+  });
 
   factory PostBody.fromJson(Map<String, dynamic> json) {
     var list = json['children'] as List;

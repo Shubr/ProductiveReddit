@@ -20,3 +20,7 @@ Future<Reddit> getPosts(String subreddit) async {
   Reddit redditPosts = Reddit.fromJson(toJson);
   return redditPosts;
 }
+
+// Future<List<Reddit>> getAllPosts(Reddit subredditPost) async{
+
+// }

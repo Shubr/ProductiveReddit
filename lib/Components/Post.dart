@@ -146,3 +146,38 @@ class _PostCardState extends State<PostCard> {
     );
   }
 }
+
+
+class SubredditCard extends StatefulWidget {
+  const SubredditCard({super.key});
+
+  @override
+  State<SubredditCard> createState() => _SubredditCardState();
+}
+
+class _SubredditCardState extends State<SubredditCard> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Stack(
+        children: [
+          SizedBox(height: 250, width: theme.size.width),
+          Container(
+            width: theme.size.width, height: 50,
+            decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: theme.green
+            ),
+          ),
+          Positioned(child: 
+          Container(
+            constraints: BoxConstraints.expand(),
+            decoration: BoxDecoration(
+              color: theme.primary
+            ),
+          ))
+        ],
+      )
+    );
+  }
+}
