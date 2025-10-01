@@ -48,6 +48,13 @@ flutter:
     - assets/icons/profileIcon.svg
     - assets/icons/backIcon.svg
     - assets/icons/downIcon.svg
+    - assets/img/green.png
+    - assets/img/purple.png
+    - assets/img/red.png
+    - assets/img/blue.png
+    - assets/img/yellow.png
+    - assets/img/orange.png
+    - assets/img/pink.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

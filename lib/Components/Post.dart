@@ -111,16 +111,17 @@ class _PostCardState extends State<PostCard> {
                     children: [
                       Text(
                         widget.title!,
-                        maxLines: height == 500.0 ? null: 2,
+                        maxLines: height == 500.0 ? null : 2,
                         style: TextStyle(
-                          height:0,
+                          height: 0,
                           wordSpacing: 0,
                           letterSpacing: 0,
 
-                          color: height == 500.0? theme.secondary : Colors.white,
+                          color:
+                              height == 500.0 ? theme.secondary : Colors.white,
                           fontFamily: theme.primaryFont,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20
+                          fontSize: 20,
                         ),
                       ),
                       SizedBox(height: 10),
@@ -128,13 +129,20 @@ class _PostCardState extends State<PostCard> {
                       Expanded(
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
-                          child:Text(
-                          widget.post!,
-                          maxLines: height == 500.0 ? null : 3,
-                          style: TextStyle(height: 0,color: height == 500.0 ? Colors.white: theme.secondary, fontSize: height == 500.0 ? 15 : 10),
+                          child: Text(
+                            widget.post!,
+                            maxLines: height == 500.0 ? null : 3,
+                            style: TextStyle(
+                              height: 0,
+                              color:
+                                  height == 500.0
+                                      ? Colors.white
+                                      : theme.secondary,
+                              fontSize: height == 500.0 ? 15 : 10,
+                            ),
+                          ),
                         ),
-                        ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -147,7 +155,6 @@ class _PostCardState extends State<PostCard> {
   }
 }
 
-
 class SubredditCard extends StatefulWidget {
   const SubredditCard({super.key});
 
@@ -156,28 +163,312 @@ class SubredditCard extends StatefulWidget {
 }
 
 class _SubredditCardState extends State<SubredditCard> {
+  double height = 400;
+  Color selectedColor = theme.green;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
       child: Stack(
         children: [
-          SizedBox(height: 250, width: theme.size.width),
+          SizedBox(height: height, width: theme.size.width),
           Container(
-            width: theme.size.width, height: 50,
+            width: theme.size.width,
+            height: 50,
             decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: theme.green
+              borderRadius: BorderRadius.circular(20),
+              color: selectedColor,
             ),
           ),
-          Positioned(child: 
-          Container(
-            constraints: BoxConstraints.expand(),
-            decoration: BoxDecoration(
-              color: theme.primary
+          Positioned(
+            top: 6,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            child: Container(
+              constraints: BoxConstraints.expand(),
+              decoration: BoxDecoration(
+                color: theme.primary,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, top: 20),
+                    child: Text(
+                      "r/Androiddev",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontFamily: theme.primaryFont,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  if (height == 400)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 50,
+                        left: 35,
+                        right: 35,
+                      ),
+                      child: Column(
+                        spacing: 10,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Post Per Day",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: theme.primaryFont,
+                                ),
+                              ),
+                              Text(
+                                "Maximum: 10",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: theme.secondary,
+                                  fontSize: 12,
+                                  fontFamily: theme.primaryFont,
+                                ),
+                              ),
+                            ],
+                          ),
+                          TextField(
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Color.fromRGBO(68, 68, 68, 1),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: const BorderSide(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                  width: 3,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "Color",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontFamily: theme.primaryFont,
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                onTap:
+                                    () => {
+                                      if (selectedColor != theme.green)
+                                        {
+                                          setState(() {
+                                            selectedColor = theme.green;
+                                          }),
+                                        },
+                                    },
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      width: 2,
+                                      color: (selectedColor == theme.green)? Colors.white : theme.border
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/img/green.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap:
+                                    () => {
+                                      if (selectedColor != theme.purple)
+                                        {
+                                          setState(() {
+                                            selectedColor = theme.purple;
+                                          }),
+                                        },
+                                    },
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      width: 2,
+                                      color: (selectedColor == theme.purple)? Colors.white : theme.border
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/img/purple.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap:
+                                    () => {
+                                      if (selectedColor != theme.red)
+                                        {
+                                          setState(() {
+                                            selectedColor = theme.red;
+                                          }),
+                                        },
+                                    },
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      width: 2,
+                                      color: (selectedColor == theme.red)? Colors.white : theme.border
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/img/red.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap:
+                                    () => {
+                                      if (selectedColor != theme.blue)
+                                        {
+                                          setState(() {
+                                            selectedColor = theme.blue;
+                                          }),
+                                        },
+                                    },
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      width: 2,
+                                      color: (selectedColor == theme.blue)? Colors.white : theme.border
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/img/blue.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap:
+                                    () => {
+                                      if (selectedColor != theme.yellow)
+                                        {
+                                          setState(() {
+                                            selectedColor = theme.yellow;
+                                          }),
+                                        },
+                                    },
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      width: 2,
+                                      color: (selectedColor == theme.yellow)? Colors.white : theme.border
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/img/yellow.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap:
+                                    () => {
+                                      if (selectedColor != theme.orange)
+                                        {
+                                          setState(() {
+                                            selectedColor = theme.orange;
+                                          }),
+                                        },
+                                    },
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      width: 2,
+                                      color: (selectedColor == theme.orange)? Colors.white : theme.border
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/img/orange.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap:
+                                    () => {
+                                      if (selectedColor != theme.pink)
+                                        {
+                                          setState(() {
+                                            selectedColor = theme.pink;
+                                          }),
+                                        },
+                                    },
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      width: 2,
+                                      color: (selectedColor == theme.pink)? Colors.white : theme.border
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/img/pink.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(children: [
+                            ElevatedButton(onPressed: (){}, child: Text("Close")),
+                            ElevatedButton(onPressed: (){}, child: Text("Delete"))
+                          ],)
+                        ],
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ))
+          ),
         ],
-      )
+      ),
     );
   }
 }
