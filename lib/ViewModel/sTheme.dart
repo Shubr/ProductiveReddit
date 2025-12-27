@@ -21,3 +21,21 @@ class sTheme {
   String primaryFont = "InriaSans";
   Size size = view.physicalSize;
 }
+
+
+Widget iButton(String text, Color color){
+  return(
+    SizedBox(
+      height: 50, width: 100,
+      child: GestureDetector(
+        child: Container(
+          decoration: BoxDecoration(color: color, border: Border.all(color: Colors.white, width: 2),borderRadius: BorderRadius.circular(10)),
+          constraints: BoxConstraints.expand(),
+          alignment: Alignment.center,
+          child: Text(text, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),),
+        ),
+      ),
+    )
+  );
+}
+

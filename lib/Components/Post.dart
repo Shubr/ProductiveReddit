@@ -13,7 +13,7 @@ class PostCard extends StatefulWidget {
   final String? title;
   final String? post;
   final String? postDate;
-  PostCard({
+  const PostCard({
     super.key,
     this.borderColor,
     this.subreddit,
@@ -456,9 +456,12 @@ class _SubredditCardState extends State<SubredditCard> {
                               ),
                             ],
                           ),
-                          Row(children: [
-                            ElevatedButton(onPressed: (){}, child: Text("Close")),
-                            ElevatedButton(onPressed: (){}, child: Text("Delete"))
+                          SizedBox(height: 20,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween
+                            ,children: [
+                            iButton("Close", theme.red),
+                            iButton("Done", theme.green)
                           ],)
                         ],
                       ),

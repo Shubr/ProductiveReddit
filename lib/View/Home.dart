@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:redditpro/Components/Post.dart';
 import 'package:redditpro/View/Home.dart';
 import 'package:redditpro/View/Subreddit.dart';
+import 'package:redditpro/ViewModel/RedditViewModel.dart';
 import '/ViewModel/sTheme.dart';
 import '/Model/RedditModel.dart';
 import 'dart:ui';
@@ -11,20 +12,35 @@ import '/ViewModel/RedditViewModel.dart' as RedditResponse;
 
 Reddit reddit = Reddit();
 
-void main() async {
-  reddit = await RedditResponse.getPosts("androiddev");
-}
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  Reddit? reddit;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadPost();
+  }
+
+  Future<void> loadPost() async {
+    final data = await RedditResponse.getPosts("androiddev");
+    setState(() {
+      reddit = data;
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -61,15 +77,15 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children:
               List.generate(
-                reddit.postBody?.post!.length ?? 0,
+                reddit?.postBody?.post!.length ?? 0,
                 (index) => ListTile(
                   title: PostCard(
                     subreddit:
-                        reddit.postBody?.post![index].postDetails!.subreddit,
+                        reddit?.postBody?.post![index].postDetails!.subreddit,
                     borderColor: theme.green,
-                    title: reddit.postBody?.post![index].postDetails!.title,
-                    post: reddit.postBody?.post![index].postDetails!.postText,
-                    postDate: reddit.postBody?.post![index].postDetails!.date,
+                    title: reddit?.postBody?.post![index].postDetails!.title,
+                    post: reddit?.postBody?.post![index].postDetails!.postText,
+                    postDate: reddit?.postBody?.post![index].postDetails!.date,
                   ),
                 ),
               ).reversed.toList(),
